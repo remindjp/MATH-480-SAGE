@@ -1,0 +1,67 @@
+︠1e1a166a-4eb7-47d0-ba0e-ac893992144co︠
+#This checks if the number is prime
+primes_under_100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+def isprime(n):
+    if n <= 100:
+        return n in primes_under_100
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+
+    for f in range(5, int(n ** .5), 6):
+        if n % f == 0 or n % (f + 2) == 0:
+            return False
+    return True
+
+#This is the function in question
+def f(x, a, b):
+    return x ** 2 + a*x + b
+
+#This finds likely primes
+def test(upto, a, b):
+    totals = [0,0]
+    for i in range(upto):
+        if isprime(f(i, a, b)):
+            totals[0] += 1
+        else:
+            totals[1] += 1
+    #Returns the ratio of primes to nonprimes for a function with given coefficent "a" up to a given number "uptwo"
+    return (totals[0] / totals[1]) / 1.0
+
+#Arbitrary .3 ratio of primes to nonprimes threshold is chosen as a test for infinite primes
+
+#Fixed b
+possiblea = []
+for i in range(100):
+    if test(1000,i, 1) > .3:
+        possiblea.append(i)
+print possiblea
+︡ad2af3a6-403b-464b-843b-ad6b136f71ea︡{"stdout":"[3, 9, 11, 21, 27, 31, 33, 39, 45, 49, 51, 63, 67, 71, 81, 84, 87, 89, 93, 99]"}︡{"stdout":"\n"}︡
+︠0e6224cd-d634-4c46-a277-6e25d90b9b54︠
+#Fixed a
+possibleb = []
+for i in range(100):
+    if test(1000,1, i) > .3:
+        possibleb.append(i)
+print possibleb
+︡37bd421b-745f-4af6-89b2-980d41751e0a︡{"stdout":"[11, 17, 37, 41, 47, 59, 67, 71, 77, 83, 95]"}︡{"stdout":"\n"}︡
+︠5249332c-df66-4e47-ae20-4fa1747cc32c︠
+#Both coefficents vary randomly from 1 to 1000
+possiblea = []
+possibleb = []
+for i in range(100):
+    x = randrange(1000)
+    y = randrange(1000)
+    if test(1000,x, y) > .3:
+        possiblea.append(x)
+        possibleb.append(y)
+print possiblea, possibleb
+︡fb2da67d-d083-447d-99ad-91a3c804d0c9︡{"stdout":"[648, 647, 585, 987, 485, 735]"}︡{"stdout":" "}︡{"stdout":"[523, 929, 313, 523, 383, 925]"}︡{"stdout":"\n"}︡
+︠29e35946-31a1-442d-954e-be4baa82632a︠
+#Fixed a leads to odd multiples of primes
+#Fixed b leads to odd multiples of primes
+#varying both randomly leads to odd multiples of primes and prime * primes
+#It seems very likely that if a and b are odd multiples of primes (or numbers in the form prime * prime) then the cubic x^2 + ax + b
+#can generate an infinite number of primes due to the high ratio of primes vs nonprimes
+︡91d50ebf-9d15-4020-9a18-991e5e40d5ae︡
+︠8b27baed-320f-4c0c-8f64-621ab26b2cc4︠
+

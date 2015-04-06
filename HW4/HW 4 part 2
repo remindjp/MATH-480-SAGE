@@ -1,0 +1,58 @@
+︠0e901561-84a1-43cc-b2bd-367c4db34c65︠
+
+def primes(n):
+    #At start, all values are mapped to 1
+    d = {x: 1 for x in range(2, n+1)}
+    for p in range(2,n + 1):
+    #Checking all multiples of p
+        for i in range(p,(n/p) + 1):
+    #This removes the multiples by setting their value to 0 (composite)
+           d[i*p] = 0
+
+    primes = []
+    for key in d.keys():
+        if d[key] == 1:
+            primes.append(key)
+
+    return primes
+︡449d2df4-b70a-4b0a-b8eb-8a409f078c06︡
+︠4ae01c32-2a9e-401d-9796-75a9badadd76︠
+L = primes(10000000)
+︡f3d3d143-3926-4a8b-bc4d-598462811412︡
+︠e1a0fa64-dafa-40a6-961b-eb0a16560b28︠
+list1 = []
+for x in range(len(L)):
+    list1.append(Mod(L[x], 15))
+︡6004fb4d-e4a1-4e5f-aeb1-f8de2f7f9334︡{"stderr":"Error in lines 2-3\n"}︡{"stderr":"Traceback (most recent call last):\n"}︡{"stderr":"  File \"/mnt/home/egvWsofR/.sagemathcloud/sage_server.py\", line 412, in execute\n"}︡{"stderr":"    exec compile(block, '', 'single') in namespace, locals\n"}︡{"stderr":"  File \"\", line 1, in <module>\n"}︡{"stderr":"NameError: name 'L' is not defined\n"}︡
+︠f9430abd-0c78-47ce-94db-48a0387a567f︠
+stats.TimeSeries(list1).plot_histogram()
+︡675e680d-4030-49d9-b7a9-db88ac7d3aa7︡{"stderr":"Error in lines 1-1\n"}︡{"stderr":"Traceback (most recent call last):\n"}︡{"stderr":"  File \"/mnt/home/egvWsofR/.sagemathcloud/sage_server.py\", line 412, in execute\n"}︡{"stderr":"    exec compile(block, '', 'single') in namespace, locals\n"}︡{"stderr":"  File \"\", line 1, in <module>\n"}︡{"stderr":"NameError: name 'list1' is not defined\n"}︡
+︠4fafb3c8-998a-4eb4-96e5-5e6270885706︠
+list2 = []
+for x in range(len(L)):
+    list2.append(Mod(L[x], 12))
+︡7a55861b-4985-4b23-8368-bd3e5cbe3448︡
+︠f82d720a-a33b-4d36-9dc1-209268c369a6︠
+stats.TimeSeries(list2).plot_histogram()
+︡06f784fc-4cc8-48d8-81de-ad03618845a2︡{"file":{"show":true,"uuid":"4ad847da-8ac1-4ba6-acdc-2405a3bcb642","filename":"/mnt/home/CNPVgX1h/.sage/temp/compute4a/14027/tmp_l6eKtw.svg"}}︡{"stdout":"\n"}︡
+︠9f7b3d20-7245-4838-b0c8-442d452fdd68︠
+list3 = []
+for x in range(len(L)):
+    list3.append(Mod(L[x], 23))
+︡4d5d5ce4-28f1-421e-865d-e39fb1e0c17e︡
+︠87079c35-e48d-40bf-84b3-6c524fbb0e55︠
+stats.TimeSeries(list3).plot_histogram()
+︡2839028b-a820-485b-8b50-4bf4b7a80b3b︡{"file":{"show":true,"uuid":"ce42f6dc-a5d3-491d-9980-32504defc72a","filename":"/mnt/home/CNPVgX1h/.sage/temp/compute4a/14027/tmp_nogump.svg"}}︡{"stdout":"\n"}︡
+
+︠ffae6a8b-f5b6-47dc-9fc2-9b9706713769︠
+list4 = []
+for x in range(len(L)):
+    list4.append(Mod(L[x], 9))
+︡bc193b96-2d3b-405d-94df-3909f7858109︡
+︠45d6baaf-05bd-49df-aebc-02b3fcecc165︠
+stats.TimeSeries(list4).plot_histogram()
+︡ea8b6585-c901-4f79-905d-2fd7af299f03︡{"file":{"show":true,"uuid":"06e33110-dc9b-41f6-be95-40a430edc6dd","filename":"/mnt/home/CNPVgX1h/.sage/temp/compute4a/14027/tmp_bOlbxu.svg"}}︡{"stdout":"\n"}︡
+︠4bf66b51-69fe-4b31-af2f-680db07994a5︠
+#The histograms are symmetrical along the midpoint ( n / 2 )
+#If n is prime then you get all values of the histogram. This makes sense since all elements of a prime order group are generators of that group.
+#If n is not prime then all values of the histogram are achieved except for the factors of n and its multiples.
